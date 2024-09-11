@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/ndiwelcome/static/css/main.39e849cc.css",
+    "main.js": "/ndiwelcome/static/js/main.ecaefcef.js",
+    "static/js/453.46728c6f.chunk.js": "/ndiwelcome/static/js/453.46728c6f.chunk.js",
+    "static/media/art.jpeg": "/ndiwelcome/static/media/art.68f061c48068a26fb0a4.jpeg",
+    "static/media/logo.svg": "/ndiwelcome/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "index.html": "/ndiwelcome/index.html",
+    "main.39e849cc.css.map": "/ndiwelcome/static/css/main.39e849cc.css.map",
+    "main.ecaefcef.js.map": "/ndiwelcome/static/js/main.ecaefcef.js.map",
+    "453.46728c6f.chunk.js.map": "/ndiwelcome/static/js/453.46728c6f.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.39e849cc.css",
+    "static/js/main.ecaefcef.js"
+  ]
+}
