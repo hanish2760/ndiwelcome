@@ -6,9 +6,11 @@
   --spotlight-color: rgba(255, 255, 255, 0.8);
   --fade-duration: 0.5s;
   --section-delay: 0.3s;
+  --primary-color: #000;
+  --secondary-color: #fff;
 }
 
-/* Apply black background and hide default cursor */
+/* Mandala Art Page Styling */
 .App {
   position: relative;
   display: flex;
@@ -22,7 +24,7 @@
   transition: transform 0.5s ease;
 }
 
-/* Styles for Moving Mandala to Corner */
+/* Rotating Mandala Effect */
 .rotating-mandala {
   width: 400px;
   height: 400px;
@@ -30,18 +32,18 @@
   border-radius: 50%;
   filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.2));
   cursor: pointer;
-  transition: transform 2s ease, bottom 2s ease, right 2s ease; /* Slower transition for smoother effect */
+  transition: transform 2s ease, top 2s ease, left 2s ease;
 }
 
-.move-to-corner {
+.move-to-nav {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 40px; /* Size of the mini mandala */
+  top: 15px;
+  left: 60px;
+  width: 40px;
   height: 40px;
-  transform: scale(1); /* Shrink to fit button size */
-  animation: spin 5s linear infinite; /* Continue rotating in the corner */
-  z-index: 30;
+  transform: scale(1);
+  animation: spin 5s linear infinite;
+  z-index: 100;
 }
 
 .App.zoomed .rotating-mandala {
@@ -64,7 +66,7 @@
   background-size: 200% 100%;
   -webkit-background-clip: text;
   background-clip: text;
-  animation: spotlight-reveal 5s linear; /* Full spotlight transition */
+  animation: spotlight-reveal 5s linear;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -72,28 +74,152 @@
   z-index: 20;
 }
 
-/* Creative Return Button Styling */
-.return-home-btn {
+/* Apple-like Homepage Styling */
+.homepage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  height: 100vh;
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
   position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background-color: transparent;
-  padding: 5px;
-  border: none;
-  cursor: pointer;
-  z-index: 30;
-  transition: transform 0.3s ease, background-color 0.3s ease;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  opacity: 0;
+  animation: fadeInPage 1s ease forwards;
+  animation-delay: 0s;
+  padding-top: 60px;
 }
 
-.mini-mandala {
-  width: 40px; /* Size of the mini mandala */
+/* Navbar Styling */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 10px 20px;
+  background-color: var(--primary-color);
+  position: fixed;
+  top: 0;
+  z-index: 20;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+}
+
+.mandala-icon {
+  width: 40px;
   height: 40px;
-  animation: spin 5s linear infinite; /* Rotate the mandala */
-  border-radius: 50%;
+  cursor: pointer;
+  animation: spin 20s linear infinite;
 }
 
-.return-home-btn:hover .mini-mandala {
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 20px;
+}
+
+.nav-links li {
+  cursor: pointer;
+  font-size: 1.1rem;
+  font-weight: bold;
+  transition: transform 0.3s, color 0.3s;
+}
+
+.nav-links li:hover {
+  color: #007aff;
   transform: scale(1.1);
+}
+
+.nav-links li.active-btn {
+  color: #007aff;
+  font-weight: bold;
+  border-bottom: 2px solid #007aff;
+  transition: all 0.5s ease;
+}
+
+.nav-right .buy-now-btn {
+  background-color: #007aff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.nav-right .buy-now-btn:hover {
+  background-color: #005bb5;
+  transform: scale(1.05);
+}
+
+/* Hero Section */
+.hero-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 60vh;
+  padding-top: 60px;
+  background-color: var(--primary-color);
+}
+
+.hero-title {
+  font-size: 3rem;
+  font-weight: bold;
+  color: var(--secondary-color);
+  margin-bottom: 20px;
+}
+
+.hero-subtitle {
+  font-size: 1.5rem;
+  color: rgba(255, 255, 255, 0.8);
+  max-width: 600px;
+  opacity: 0;
+  animation: fadeText 0.5s ease forwards;
+  transition: all 0.5s ease;
+}
+
+.animate-text {
+  animation: fadeText 0.5s ease forwards;
+}
+
+/* Smooth Text Fade-in */
+@keyframes fadeText {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Smooth Fade-in for Page */
+@keyframes fadeInPage {
+  to {
+    opacity: 1;
+  }
+}
+
+/* Rotating Effect for Mandala */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* Keyframes for Spotlight Effect */
@@ -103,58 +229,5 @@
   }
   100% {
     background-position: -200% 0;
-  }
-}
-
-/* Homepage Styling */
-.homepage {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  width: 100%;
-  height: 100vh;
-  background-color: black;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 10;
-  opacity: 0;
-  animation: fadeInPage 1s ease forwards;
-  animation-delay: 0s; /* Show immediately after text transition completes */
-}
-
-/* Skeleton Homepage Design */
-.tab-heading {
-  margin: 20px 0;
-  padding: 10px;
-  font-size: 1.8rem;
-  font-weight: bold;
-  color: #fff;
-  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
-  width: 90%;
-  text-align: center;
-  transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.tab-heading:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-}
-
-/* Keyframes for Fade-in Animations */
-@keyframes fadeInPage {
-  to {
-    opacity: 1;
-  }
-}
-
-/* Keyframes for Rotating Effect */
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
   }
 }
