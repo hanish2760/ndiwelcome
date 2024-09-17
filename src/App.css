@@ -1,118 +1,156 @@
 /* src/App.css */
 
-/* Define Aesthetic Background Colors as CSS Variables */
+/* Global Variables for Spotlight */
 :root {
-  --soft-blush-pink: #fde2e4;
-  --muted-lavender: #e3dfff;
-  --pastel-mint-green: #d0f4de;
-  --light-periwinkle-blue: #dceffc;
-  --warm-beige: #fff3e6;
-  --pale-coral: #ffe4e1;
-  --dusty-blue: #a8dadc;
-  --soft-grey-lilac: #ece4f7;
-  --peachy-cream: #fff0db;
-  --gentle-seafoam: #c3e5d8;
+  --spotlight-size: 300px;
+  --spotlight-color: rgba(255, 255, 255, 0.8);
+  --fade-duration: 0.5s;
+  --section-delay: 0.3s;
 }
 
-/* Use Selected Aesthetic Colors */
+/* Apply black background and hide default cursor */
 .App {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: var(--dusty-blue); /* Muted blue provides a calm and elegant backdrop */
-  overflow: hidden; /* Prevents any overflow of rotating element */
-  flex-direction: column; /* Arrange elements in a column */
-  position: relative;
+  overflow: hidden;
+  flex-direction: column;
+  color: white;
+  background-color: black;
+  transition: transform 0.5s ease;
 }
 
+/* Styles for Moving Mandala to Corner */
 .rotating-mandala {
-  width: 400px; /* Adjust size as needed */
+  width: 400px;
   height: 400px;
-  animation: spin 20s linear infinite; /* Smooth, continuous rotation */
-  border-radius: 50%; /* Ensures the image remains circular */
-  filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.2)); /* Adds a subtle shadow to give depth */
+  animation: spin 20s linear infinite;
+  border-radius: 50%;
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.2));
+  cursor: pointer;
+  transition: transform 2s ease, bottom 2s ease, right 2s ease; /* Slower transition for smoother effect */
 }
 
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.move-to-corner {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 40px; /* Size of the mini mandala */
+  height: 40px;
+  transform: scale(1); /* Shrink to fit button size */
+  animation: spin 5s linear infinite; /* Continue rotating in the corner */
+  z-index: 30;
 }
 
-/* Enhanced Styles for Spotlight Effect */
-.intro-heading {
+.App.zoomed .rotating-mandala {
+  display: none;
+}
+
+/* Transition Text Effect */
+.transition-heading {
   font-size: 4rem;
   font-weight: bold;
-  color: transparent; /* Text is hidden initially */
-  position: relative;
-  overflow: hidden;
-  width: 100%;
+  color: transparent;
   text-align: center;
-}
-
-.intro-heading::before {
-  content: 'NDI is LIVE'; /* Duplicate text for effect */
-  position: absolute;
-  top: 0;
-  left: -150%; /* Start position of the spotlight */
-  width: 200%;
-  color: var(--peachy-cream); /* Light peachy cream for soft contrast with background */
-  background: linear-gradient(
-    90deg,
+  background-image: linear-gradient(
+    120deg,
     transparent 0%,
-    rgba(255, 255, 255, 0.8) 50%,
+    var(--spotlight-color) 50%,
     transparent 100%
-  ); /* Creates the spotlight beam effect */
-  background-clip: text;
+  );
+  background-repeat: no-repeat;
+  background-size: 200% 100%;
   -webkit-background-clip: text;
-  animation: spotlight 5s ease-out infinite; /* Spotlight animation */
+  background-clip: text;
+  animation: spotlight-reveal 5s linear; /* Full spotlight transition */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 20;
 }
 
-@keyframes spotlight {
+/* Creative Return Button Styling */
+.return-home-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: transparent;
+  padding: 5px;
+  border: none;
+  cursor: pointer;
+  z-index: 30;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.mini-mandala {
+  width: 40px; /* Size of the mini mandala */
+  height: 40px;
+  animation: spin 5s linear infinite; /* Rotate the mandala */
+  border-radius: 50%;
+}
+
+.return-home-btn:hover .mini-mandala {
+  transform: scale(1.1);
+}
+
+/* Keyframes for Spotlight Effect */
+@keyframes spotlight-reveal {
   0% {
-    left: -150%; /* Start off-screen */
-  }
-  50% {
-    left: 50%; /* Center on the text */
+    background-position: 200% 0;
   }
   100% {
-    left: 200%; /* Move off-screen */
+    background-position: -200% 0;
   }
 }
 
-/* Existing Styles */
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* Homepage Styling */
+.homepage {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  justify-content: flex-start;
+  width: 100%;
+  height: 100vh;
+  background-color: black;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  opacity: 0;
+  animation: fadeInPage 1s ease forwards;
+  animation-delay: 0s; /* Show immediately after text transition completes */
 }
 
-.App-link {
-  color: #61dafb;
+/* Skeleton Homepage Design */
+.tab-heading {
+  margin: 20px 0;
+  padding: 10px;
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #fff;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+  width: 90%;
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 
-@keyframes App-logo-spin {
+.tab-heading:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Keyframes for Fade-in Animations */
+@keyframes fadeInPage {
+  to {
+    opacity: 1;
+  }
+}
+
+/* Keyframes for Rotating Effect */
+@keyframes spin {
   from {
     transform: rotate(0deg);
   }
