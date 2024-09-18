@@ -4,10 +4,21 @@
 :root {
   --spotlight-size: 300px;
   --spotlight-color: rgba(255, 255, 255, 0.8);
-  --fade-duration: 0.5s;
+  --fade-duration: 1.5s;
   --section-delay: 0.3s;
   --primary-color: #000;
   --secondary-color: #fff;
+  --font-family: 'Avenir', sans-serif;
+  --min-font-size: 1.5rem;
+  --max-font-size: 2.5rem;
+}
+
+/* Apply Global Font */
+* {
+  font-family: var(--font-family);
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 /* Mandala Art Page Styling */
@@ -35,24 +46,15 @@
   transition: transform 2s ease, top 2s ease, left 2s ease;
 }
 
-.move-to-nav {
-  position: fixed;
-  top: 15px;
-  left: 60px;
-  width: 40px;
-  height: 40px;
-  transform: scale(1);
-  animation: spin 5s linear infinite;
-  z-index: 100;
-}
-
-.App.zoomed .rotating-mandala {
-  display: none;
+/* Double Tap Message Styling */
+.intro-heading {
+  margin-bottom: 20px;
+  font-size: 1.5rem;
 }
 
 /* Transition Text Effect */
 .transition-heading {
-  font-size: 4rem;
+  font-size: 3rem;
   font-weight: bold;
   color: transparent;
   text-align: center;
@@ -72,9 +74,10 @@
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 20;
+  white-space: nowrap;
 }
 
-/* Apple-like Homepage Styling */
+/* Homepage Styling */
 .homepage {
   display: flex;
   flex-direction: column;
@@ -138,13 +141,6 @@
   transform: scale(1.1);
 }
 
-.nav-links li.active-btn {
-  color: #007aff;
-  font-weight: bold;
-  border-bottom: 2px solid #007aff;
-  transition: all 0.5s ease;
-}
-
 .nav-right .buy-now-btn {
   background-color: #007aff;
   color: white;
@@ -171,6 +167,7 @@
   height: 60vh;
   padding-top: 60px;
   background-color: var(--primary-color);
+  margin-bottom: 20px; /* Space below hero subtitle */
 }
 
 .hero-title {
@@ -193,11 +190,67 @@
   animation: fadeText 0.5s ease forwards;
 }
 
+/* Spotlight Message Styling */
+/* src/App.css */
+.spotlight-message {
+  font-size: 2rem;
+  font-weight: bold;
+  color: transparent;
+  text-align: center;
+  background-image: linear-gradient(
+    120deg,
+    transparent 0%,
+    var(--spotlight-color) 50%,
+    transparent 100%
+  );
+  background-repeat: no-repeat;
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: spotlight-reveal 4s linear;
+  margin-top: 20px;
+}
+
+@keyframes spotlight-reveal {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+
+
+
+/* Keyframes for the message cycle */
+@keyframes message-cycle {
+  0% {
+    opacity: 0;
+    transform: scale(0.8); /* Slight zoom-in effect for entry */
+    background-position: 200% 0;
+  }
+  10% {
+    opacity: 1;
+    transform: scale(1); /* Show fully scaled */
+  }
+  50% {
+    background-position: -200% 0; /* Spotlight effect completes halfway */
+  }
+  90% {
+    opacity: 1;
+    transform: scale(1); /* Maintain visibility */
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.8); /* Fade-out effect */
+  }
+}
 /* Smooth Text Fade-in */
 @keyframes fadeText {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(10px);
   }
   to {
     opacity: 1;
@@ -222,12 +275,4 @@
   }
 }
 
-/* Keyframes for Spotlight Effect */
-@keyframes spotlight-reveal {
-  0% {
-    background-position: 200% 0;
-  }
-  100% {
-    background-position: -200% 0;
-  }
-}
+
