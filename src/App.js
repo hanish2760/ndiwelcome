@@ -16,17 +16,15 @@ function App() {
   // Initial messages array
   const initialMessages = [
     "Unlock the Future of Inclusion",
-    "A New Era Begins",
     "Discover the Hidden Potential",
     "Join the Movement",
     "Your Journey Starts Here",
     "Are You Ready to Rethink?",
     "How Will You Make a Difference?",
     "What's Missing in the Conversation?",
-    "Something Extraordinary is Coming...",
-    "Prepare to Be Inspired",
     "The Change Starts Now",
     "Connect with Kindred Spirits",
+    "Something Extraordinary is Coming...",
     "Be Part of the Revolution"
   ];
 
