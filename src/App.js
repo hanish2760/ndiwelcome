@@ -1,17 +1,21 @@
-import React, { useState, useEffect, useRef } from 'react';
-import './App.css';
-import mandala from './art.jpeg'; // Ensure the correct path to your image
+import React, { useState, useEffect, useRef } from "react";
+import "./App.css";
+import mandala from "./resources/art.jpeg"; // Updated path for images
+import BlahBlahWeddings from "./BlahBlahWeddings"; // New component
 
 function App() {
   const [isZoomed, setIsZoomed] = useState(false);
   const [showHomepage, setShowHomepage] = useState(false);
   const [showDoubleTapText, setShowDoubleTapText] = useState(true);
-  const [activeSection, setActiveSection] = useState('home');
-  const [heroSubtitle, setHeroSubtitle] = useState('a community where every mind is valued, understood, and celebrated.');
-  const [currentMessage, setCurrentMessage] = useState(''); // State to hold the current message to display
+  const [activeSection, setActiveSection] = useState("home");
+  const [heroSubtitle, setHeroSubtitle] = useState(
+    "a community where every mind is valued, understood, and celebrated."
+  );
+  const [currentMessage, setCurrentMessage] = useState(""); // State to hold the current message to display
   const [showSpotlightText, setShowSpotlightText] = useState(false);
   const [remainingMessages, setRemainingMessages] = useState([]);
   const animationRef = useRef(null); // Ref to manipulate the DOM element
+  const [navigateToWeddings, setNavigateToWeddings] = useState(false);
 
   // Initial messages array
   const initialMessages = [
@@ -25,7 +29,7 @@ function App() {
     "The Change Starts Now",
     "Connect with Kindred Spirits",
     "Something Extraordinary is Coming...",
-    "Be Part of the Revolution"
+    "Be Part of the Revolution",
   ];
 
   // Repopulate messages when the list is empty
@@ -39,10 +43,10 @@ function App() {
   const resetAnimation = () => {
     const element = animationRef.current;
     if (element) {
-      element.classList.remove('spotlight-visible');
+      element.classList.remove("spotlight-visible");
       // Force reflow
       void element.offsetWidth; // Force a reflow to reset the animation
-      element.classList.add('spotlight-visible');
+      element.classList.add("spotlight-visible");
     }
   };
 
@@ -79,6 +83,14 @@ function App() {
     }
   }, [showHomepage, showSpotlightText]);
 
+  const handleNavigateToWeddings = () => {
+    setNavigateToWeddings(true); // Faster transition (2 seconds)
+  };
+
+  if (navigateToWeddings) {
+    return <BlahBlahWeddings />;
+  }
+
   // Handle double-click to trigger transitions
   const handleDoubleClick = () => {
     setShowDoubleTapText(false);
@@ -98,27 +110,46 @@ function App() {
     setIsZoomed(false);
     setShowSpotlightText(false);
     setShowDoubleTapText(true);
-    setActiveSection('home'); // Reset to home section on returning
+    setActiveSection("home"); // Reset to home section on returning
   };
 
   // Handle navigation clicks to change active section
   const handleNavClick = (section) => {
     setActiveSection(section);
     switch (section) {
-      case 'home':
-        setHeroSubtitle('a community where every mind is valued, understood, and celebrated.');
+      case "home":
+        setHeroSubtitle(
+          "a community where every mind is valued, understood, and celebrated."
+        );
         break;
-      case 'about':
-        setHeroSubtitle('Discover our story and how we are redefining the future for neurodivergent individuals across India.');
+      case "about":
+        setHeroSubtitle(
+          "Discover our story and how we are redefining the future for neurodivergent individuals across India."
+        );
         break;
-      case 'mission':
-        setHeroSubtitle('Empowering neurodivergent lives through awareness, education, advocacy, and unwavering support.');
+      case "mission":
+        setHeroSubtitle(
+          "Empowering neurodivergent lives through awareness, education, advocacy, and unwavering support."
+        );
         break;
-      case 'community':
-        setHeroSubtitle('Join a vibrant community where neurodiverse voices come together to connect, learn, and thrive.');
+      case "community":
+        setHeroSubtitle(
+          <>
+            Join a vibrant community where neurodiverse voices come together to
+            connect, learn, and thrive.
+            <br />
+            <ul className="community-links">
+              <li onClick={handleNavigateToWeddings} className="weddings-link">
+                Blah Blah Weddings
+              </li>
+            </ul>
+          </>
+        );
         break;
-      case 'resources':
-        setHeroSubtitle('Explore tools, guides, and expert insights tailored to help you navigate a neurodiverse world with confidence.');
+      case "resources":
+        setHeroSubtitle(
+          "Explore tools, guides, and expert insights tailored to help you navigate a neurodiverse world with confidence."
+        );
         break;
       default:
         break;
@@ -126,27 +157,26 @@ function App() {
   };
 
   return (
-    <div className={`App ${isZoomed ? 'zoomed' : ''}`}>
+    <div className={`App ${isZoomed ? "zoomed" : ""}`}>
       {showHomepage ? (
         <div className="homepage">
           <nav className="navbar">
             <div className="nav-left">
+            </div>
+            <ul className="nav-links">
+              <li onClick={() => handleNavClick("home")}>Home</li>
+              <li onClick={() => handleNavClick("about")}>About Us</li>
+              <li onClick={() => handleNavClick("mission")}>Our Mission</li>
+              <li onClick={() => handleNavClick("community")}>Community</li>
+              <li onClick={() => handleNavClick("resources")}>Resources</li>
+            </ul>
+            <div className="nav-right">
               <img
                 src={mandala}
                 alt="Return to Mandala"
                 className="mandala-icon rotating"
                 onClick={handleZoomOut}
               />
-            </div>
-            <ul className="nav-links">
-              <li onClick={() => handleNavClick('home')}>Home</li>
-              <li onClick={() => handleNavClick('about')}>About Us</li>
-              <li onClick={() => handleNavClick('mission')}>Our Mission</li>
-              <li onClick={() => handleNavClick('community')}>Community</li>
-              <li onClick={() => handleNavClick('resources')}>Resources</li>
-            </ul>
-            <div className="nav-right">
-              <button className="buy-now-btn">Join Us</button>
             </div>
           </nav>
           <section className="hero-section">
@@ -163,13 +193,17 @@ function App() {
       ) : (
         <>
           {showSpotlightText ? (
-            <h1 className="transition-heading">What if everyone was understood?</h1>
+            <h1 className="transition-heading">
+              What if everyone was understood?
+            </h1>
           ) : (
             <>
-              {showDoubleTapText && <h1 className="intro-heading">Double tap on mandala</h1>}
+              {showDoubleTapText && (
+                <h1 className="intro-heading">Double tap on mandala</h1>
+              )}
               <img
                 src={mandala}
-                alt="NDI LIVE Mandala"
+                alt="NDI is LIVE"
                 className={`rotating-mandala`}
                 onDoubleClick={handleDoubleClick}
               />

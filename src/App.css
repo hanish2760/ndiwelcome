@@ -1,5 +1,3 @@
-/* src/App.css */
-
 /* Global Variables for Spotlight */
 :root {
   --spotlight-size: 300px;
@@ -190,25 +188,6 @@
   animation: fadeText 0.5s ease forwards;
 }
 
-/* Fade-in and Fade-out for Messages at the Bottom */
-.spotlight-message {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: white;
-  text-align: center;
-  background-image: linear-gradient(
-    120deg,
-    transparent 0%,
-    var(--spotlight-color) 50%,
-    transparent 100%
-  );
-  background-repeat: no-repeat;
-  background-size: 200% 100%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  animation: spotlight-reveal 4s linear;
-  margin-top: 20px;
-}
 @keyframes spotlight-reveal {
   0% {
     background-position: 200% 0;
@@ -217,33 +196,35 @@
     background-position: -200% 0;
   }
 }
+/* Updated Fade-in and Fade-out for Messages at the Bottom */
+.spotlight-message {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+  position: absolute;
+  bottom: 5%; /* Positioned near the bottom */
+  width: 100%;
+  left: 0;
+  animation: fade-in-out   4s infinite;
+}
 
-
-
-
-/* Keyframes for the message cycle */
-@keyframes message-cycle {
+/* Animation for smooth fade-in and fade-out */
+@keyframes fade-in-out {
   0% {
     opacity: 0;
-    transform: scale(0.8); /* Slight zoom-in effect for entry */
-    background-position: 200% 0;
   }
   10% {
     opacity: 1;
-    transform: scale(1); /* Show fully scaled */
-  }
-  50% {
-    background-position: -200% 0; /* Spotlight effect completes halfway */
   }
   90% {
     opacity: 1;
-    transform: scale(1); /* Maintain visibility */
   }
   100% {
-  opacity: 0;
-    transform: scale(0.8); /* Fade-out effect */
+    opacity: 0;
   }
 }
+
 /* Smooth Text Fade-in */
 @keyframes fadeText {
   from {
@@ -272,5 +253,118 @@
     transform: rotate(360deg);
   }
 }
+
+/* Responsive Settings for Mobile */
+@media (max-width: 768px) {
+  .transition-heading {
+    font-size: 2rem; /* Scale down spotlight text */
+    top: 40%; /* Position it slightly higher on smaller screens */
+    max-width: 100%;
+    padding: 0 10px; /* Padding for smaller screens */
+  }
+
+  .hero-title {
+    font-size: 2rem; /* Adjust for mobile screens */
+  }
+
+  .hero-subtitle {
+    font-size: 1.2rem; /* Smaller font for mobile */
+  }
+
+  .spotlight-message {
+    font-size: 1.2rem; /* Adjust the message size for mobile */
+  }
+}
+/* Dropdown styling */
+.dropdown {
+  position: absolute;
+  background-color: #333;
+  padding: 10px;
+  list-style: none;
+  margin-top: 10px;
+}
+
+.dropdown li {
+  padding: 5px 15px;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.dropdown li:hover {
+  background-color: #555;
+}
+/* Existing styles remain unchanged... */
+
+/* Creative Card Style for Blah Blah Weddings */
+/* Creative Card Style for Blah Blah Weddings */
+/* Ensure the dropdown background matches the theme and centers properly */
+.creative-card {
+  position: absolute;
+  top: 100%; /* Aligns the card directly under the "Community" button */
+  left: 50%;
+  transform: translate(-50%, 0); /* Centering the dropdown horizontally */
+  width: 220px;
+  padding: 15px;
+  background-color: var(--primary-color); /* Same background as the page */
+  color: var(--secondary-color); /* Consistent color */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  text-align: center;
+  z-index: 100;
+}
+
+.creative-card:hover {
+  transform: scale(1.05);
+}
+
+.card-text {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+/* Add these styles at the bottom of your App.css */
+
+/* Style for Blah Blah Weddings link */
+.weddings-link {
+  font-size: 1.2rem;
+  font-family: 'Great Vibes', cursive;
+  color: #d4a373;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.weddings-link:hover {
+  color: #a3573e; /* Darker color on hover */
+}
+
+/* Add this to App.css */
+
+/* Style for Community Links */
+.community-links {
+  list-style: none;
+  padding: 0;
+  margin-top: 10px;
+  font-family: 'Great Vibes', cursive;
+  font-size: 1.5rem;
+}
+
+.community-links li {
+  cursor: pointer;
+  color: #d4a373;
+  transition: color 0.3s ease;
+}
+
+.community-links li:hover {
+  color: #a3573e; /* Slightly darker on hover */
+}
+
+.coming-soon {
+  color: #a3573e;
+  font-style: italic;
+}
+
 
 
