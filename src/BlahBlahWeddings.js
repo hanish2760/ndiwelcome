@@ -1,22 +1,16 @@
 import React from 'react';
 import './BlahBlahWeddings.css'; // Importing the CSS for the weddings page
-import { useNavigate } from 'react-router-dom'; // Importing the hook for navigation
-
+import { useNavigate } from 'react-router-dom'; // Import useNavigate from react-router-dom
+import mandala from './resources/mandala.jpeg';
 import blahblah1 from './resources/blahblah1.jpeg';
 import blahblah2 from './resources/blahblah2.jpeg';
 import blahblah3 from './resources/blahblah3.jpeg';
 import blahblah4 from './resources/blahblah4.jpeg';
 import blahblah5 from './resources/blahblah5.jpeg';
 import blahblah6 from './resources/blahblah6.jpeg';
-import mandala from "./resources/mandala.jpeg"; // Updated path for images
 
 const BlahBlahWeddings = () => {
   const navigate = useNavigate(); // Hook to navigate between routes
-
-  // Handle return functionality to go back to the NDI homepage
-  const homepage = () => {
-    navigate('/'); // This will take the user to the NDI homepage
-  };
 
   return (
     <div className="weddings-page">
@@ -33,13 +27,13 @@ const BlahBlahWeddings = () => {
             <li>Blog</li>
             <li>Shop</li>
             <li className="mandala-icon-wrapper">
-              <img
-                src={mandala}
-                alt="Return to Mandala"
-                className="mandala-icon rotating"
-                onClick={homepage} // Navigate back when mandala is clicked
-              />
-            </li>
+            <img
+              src={mandala}
+              alt="Return to Mandala"
+              className="mandala-icon rotating"
+              onClick={() => navigate('/')} // Navigate back to home page on mandala click
+            />
+          </li>
           </ul>
         </nav>
       </header>

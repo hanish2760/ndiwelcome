@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from "react-router-dom";
 import "./App.css";
 import mandala from "./resources/art.jpeg"; // Updated path for images
 import BlahBlahWeddings from "./BlahBlahWeddings"; // New component
@@ -15,7 +16,8 @@ function App() {
   const [showSpotlightText, setShowSpotlightText] = useState(false);
   const [remainingMessages, setRemainingMessages] = useState([]);
   const animationRef = useRef(null); // Ref to manipulate the DOM element
-  const [navigateToWeddings, setNavigateToWeddings] = useState(false);
+
+  const navigate = useNavigate(); // React Router hook for navigation
 
   // Initial messages array
   const initialMessages = [
@@ -83,14 +85,6 @@ function App() {
     }
   }, [showHomepage, showSpotlightText]);
 
-  const handleNavigateToWeddings = () => {
-    setNavigateToWeddings(true); // Faster transition (2 seconds)
-  };
-
-  if (navigateToWeddings) {
-    return <BlahBlahWeddings />;
-  }
-
   // Handle double-click to trigger transitions
   const handleDoubleClick = () => {
     setShowDoubleTapText(false);
@@ -139,7 +133,7 @@ function App() {
             connect, learn, and thrive.
             <br />
             <ul className="community-links">
-              <li onClick={handleNavigateToWeddings} className="weddings-link">
+              <li onClick={() => navigate('/blah-blah-weddings')} className="weddings-link">
                 Blah Blah Weddings
               </li>
             </ul>
@@ -161,8 +155,7 @@ function App() {
       {showHomepage ? (
         <div className="homepage">
           <nav className="navbar">
-            <div className="nav-left">
-            </div>
+            <div className="nav-left"></div>
             <ul className="nav-links">
               <li onClick={() => handleNavClick("home")}>Home</li>
               <li onClick={() => handleNavClick("about")}>About Us</li>
